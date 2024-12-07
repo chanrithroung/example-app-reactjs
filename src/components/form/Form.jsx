@@ -1,6 +1,7 @@
 
 import Tr from "../tr/Tr";
 import { useState } from "react";
+import './validation.css';
 const Form = () => {
 
     const [username, setUsername] = useState("");
@@ -20,6 +21,7 @@ const Form = () => {
 
     const addUser = (e) => {
         e.preventDefault();
+        if(!username || !email) return null;
         setMember( [...member, {id, username, email}] );
         setUsername("")
         setEmail("")
@@ -43,11 +45,21 @@ const Form = () => {
                     <h1 className="text-center mb-5">Create User</h1>
                     <div className="mb-3">
                         <label htmlFor="username">Username</label>
-                        <input value={username} id="username" onChange={(e) => setUsername(e.target.value)} className="form-control" type="text" />
+                        <input required value={username} id="username" onChange={e => {
+                            setUsername(e.target.value);
+                            if(!e.target.value) e.target.classList.add('invalid');
+                            else e.target.classList.remove('invalid');
+
+                            
+                        }} className="form-control" type="text" />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="email">Email</label>
-                        <input value={email} onChange={(e) => setEmail(e.target.value)} id="email" className="form-control" type="email" />
+                        <label htmlFor="email ">Email</label>
+                        <input value={email} onChange={e => { 
+                            setEmail(e.target.value);
+                            if(!e.target.value) e.target.classList.add('invalid');
+                            else e.target.classList.remove('invalid');
+                        }} id="email" className="form-control" type="email" />
                     </div>
                     <div className="py-3 d-grid">
                         <button type="submit" className="btn btn-primary">Submit</button>

@@ -1,5 +1,6 @@
 import './toggle.css';
 import { useEffect, useState } from 'react';
+import UseToggle from './useToggle';
 
 
 const Message = () =>  {
@@ -17,11 +18,11 @@ const Message = () =>  {
 }
 
 const Toggle = () => {
-    const [toggle, setToggle] = useState(false);
+    const [toggle, trigger] = UseToggle(false);
 
     return <div className="toggle-container">
         {toggle && <Message />}
-        <button onClick={()=> setToggle(!toggle) }>Toggle</button>
+        <button onClick={()=> trigger()  }>Toggle</button>
     </div>
 }
 
